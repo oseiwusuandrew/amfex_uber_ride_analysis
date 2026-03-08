@@ -4,8 +4,8 @@
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/oseiwusuandrew/amfex-uber-ride-analysis.git
-cd amfex-uber-ride-analysis
+git clone https://github.com/oseiwusuandrew/amfex_uber_ride_analysis.git
+cd amfex_uber_ride_analysis
 ```
 
 ### 2. Install Dependencies
@@ -100,7 +100,7 @@ If plots don't display, they're saved as PNG files in the `Visualizations/` fold
 
 ## Support
 
-For questions or issues, please open an issue on the [GitHub repository](https://github.com/oseiwusuandrew/amfex-uber-ride-analysis/issues).
+For questions or issues, please open an issue on the [GitHub repository](https://github.com/oseiwusuandrew/amfex_uber_ride_analysis/issues).
 
 ---
 

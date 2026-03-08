@@ -3,8 +3,8 @@
 ## Verification Complete
 
 ### Repository Information
-- Repository Name: amfex-uber-ride-analysis
-- GitHub URL: https://github.com/oseiwusuandrew/amfex-uber-ride-analysis
+- Repository Name: amfex_uber_ride_analysis
+- GitHub URL: https://github.com/oseiwusuandrew/amfex_uber_ride_analysis
 - Author: Andrew Oseiwusu
 - License: MIT
 
@@ -62,14 +62,14 @@
 
 2. Create GitHub repository:
    - Go to https://github.com/new
-   - Name: amfex-uber-ride-analysis
+   - Name: amfex_uber_ride_analysis
    - Description: End-to-end data analysis of Uber ride patterns and revenue trends
    - Public repository
    - Don't initialize with README (you already have one)
 
 3. Push to GitHub:
    ```bash
-   git remote add origin https://github.com/oseiwusuandrew/amfex-uber-ride-analysis.git
+   git remote add origin https://github.com/oseiwusuandrew/amfex_uber_ride_analysis.git
    git branch -M main
    git push -u origin main
    ```

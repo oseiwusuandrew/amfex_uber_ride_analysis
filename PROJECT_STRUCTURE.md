@@ -1,7 +1,7 @@
 # Project Structure
 
 ```
-amfex-uber-ride-analysis/
+amfex_uber_ride_analysis/
 │
 ├── data/                              # Data directory
 │   ├── README.md                      # Data documentation

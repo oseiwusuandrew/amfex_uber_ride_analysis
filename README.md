@@ -32,7 +32,7 @@ This project performs an in-depth analysis of Uber ride data to uncover insights
 ## Project Structure
 
 ```
-amfex-uber-ride-analysis/
+amfex_uber_ride_analysis/
 │
 ├── scripts/
 │   └── uber_data_analysis.py      # Main analysis script
@@ -185,7 +185,7 @@ This project provides comprehensive analysis including:
 
 ## Contributing
 
-Contributions, issues, and feature requests are welcome! Feel free to check the [issues page](https://github.com/oseiwusuandrew/amfex-uber-ride-analysis/issues).
+Contributions, issues, and feature requests are welcome! Feel free to check the [issues page](https://github.com/oseiwusuandrew/amfex_uber_ride_analysis/issues).
 
 ## Contact
 
