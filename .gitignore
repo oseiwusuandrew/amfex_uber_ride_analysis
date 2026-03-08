@@ -39,7 +39,6 @@ Thumbs.db
 
 # Generated files
 data/Uber_Data_Cleaned.csv
-Visualizations/*.png
 
 # Data files (optional - uncomment if you don't want to track original data)
 # data/Uber_Data.xlsx
