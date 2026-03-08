@@ -32,31 +32,31 @@ def load_and_explore_data(filepath):
     # Load data
     df = pd.read_excel(filepath)
     
-    # Q1: Total records
+    # Total records
     print(f"\n1. Total records (rides): {len(df)}")
     
-    # Q2: Column names and data types
+    # Column names and data types
     print(f"\n2. Column names and data types:")
     print(df.dtypes)
     
-    # Q3: Unique pickup and drop-off locations
+    # Unique pickup and drop-off locations
     unique_pickup = df['PickupLocation'].nunique()
     unique_dropoff = df['DropoffLocation'].nunique()
     print(f"\n3. Unique pickup locations: {unique_pickup}")
     print(f"   Unique drop-off locations: {unique_dropoff}")
     
-    # Q4: Earliest and latest ride date
+    # Earliest and latest ride date
     df['Date'] = pd.to_datetime(df['Date'])
     earliest = df['Date'].min()
     latest = df['Date'].max()
     print(f"\n4. Earliest ride date: {earliest.date()}")
     print(f"   Latest ride date: {latest.date()}")
     
-    # Q5: Rides per time of day
+    # Rides per time of day
     print(f"\n5. Rides per Time of Day:")
     print(df['TimeOfDay'].value_counts().sort_index())
     
-    # Q6: Payment methods
+    # Payment methods
     print(f"\n6. Payment methods used:")
     print(df['PaymentMethod'].value_counts())
     
@@ -73,33 +73,33 @@ def clean_data(df):
     print("SECTION 2: DATA CLEANING")
     print("="*80)
     
-    # Q7: Check for missing and duplicate values
+    # Check for missing and duplicate values
     print(f"\n7. Missing values per column:")
     print(df.isnull().sum())
     print(f"\n   Duplicate rows: {df.duplicated().sum()}")
     
-    # Q8: Replace missing payment methods
+    # Replace missing payment methods
     if df['PaymentMethod'].isnull().sum() > 0:
         df['PaymentMethod'].fillna('Unknown', inplace=True)
         print(f"\n8. Missing payment methods replaced with 'Unknown'")
     else:
         print(f"\n8. No missing payment methods found")
     
-    # Q9: Convert Date to datetime (already done in load function)
+    # Convert Date to datetime (already done in load function)
     print(f"\n9. Date column converted to datetime format")
     
-    # Q10: Ensure positive values
+    # Ensure positive values
     negative_distance = (df['Distance (km)'] < 0).sum()
     negative_fare = (df['FareAmount ($)'] < 0).sum()
     df = df[(df['Distance (km)'] > 0) & (df['FareAmount ($)'] > 0)]
     print(f"\n10. Removed {negative_distance} negative distance values")
     print(f"    Removed {negative_fare} negative fare values")
     
-    # Q11: Create FarePerKM column
+    # Create FarePerKM column
     df['FarePerKM'] = (df['FareAmount ($)'] / df['Distance (km)']).round(2)
     print(f"\n11. Created FarePerKM column")
     
-    # Q12: Extract Month and Day of Week
+    # Extract Month and Day of Week
     df['Month'] = df['Date'].dt.month_name()
     df['DayOfWeek'] = df['Date'].dt.day_name()
     print(f"\n12. Added Month and DayOfWeek columns")
@@ -117,34 +117,34 @@ def descriptive_analysis(df):
     print("SECTION 3: DESCRIPTIVE ANALYSIS")
     print("="*80)
     
-    # Q13: Fare statistics
+    # Fare statistics
     print(f"\n13. Fare Amount Statistics:")
     print(f"    Average: ${df['FareAmount ($)'].mean():.2f}")
     print(f"    Minimum: ${df['FareAmount ($)'].min():.2f}")
     print(f"    Maximum: ${df['FareAmount ($)'].max():.2f}")
     
-    # Q14: Distance statistics
+    # Distance statistics
     print(f"\n14. Distance Statistics:")
     print(f"    Average: {df['Distance (km)'].mean():.2f} km")
     print(f"    Minimum: {df['Distance (km)'].min():.2f} km")
     print(f"    Maximum: {df['Distance (km)'].max():.2f} km")
     
-    # Q15: Pickup location with most rides
+    # Pickup location with most rides
     top_pickup = df['PickupLocation'].value_counts().head(1)
     print(f"\n15. Pickup location with most rides:")
     print(f"    {top_pickup.index[0]}: {top_pickup.values[0]} rides")
     
-    # Q16: Drop-off location with highest average fare
+    # Drop-off location with highest average fare
     avg_fare_dropoff = df.groupby('DropoffLocation')['FareAmount ($)'].mean().sort_values(ascending=False)
     print(f"\n16. Drop-off location with highest average fare:")
     print(f"    {avg_fare_dropoff.index[0]}: ${avg_fare_dropoff.values[0]:.2f}")
     
-    # Q17: Time of day with most rides
+    # Time of day with most rides
     top_time = df['TimeOfDay'].value_counts().head(1)
     print(f"\n17. Time of day with most rides:")
     print(f"    {top_time.index[0]}: {top_time.values[0]} rides")
     
-    # Q18: Most frequent payment method
+    # Most frequent payment method
     top_payment = df['PaymentMethod'].value_counts().head(1)
     print(f"\n18. Most frequent payment method:")
     print(f"    {top_payment.index[0]}: {top_payment.values[0]} rides")
@@ -160,33 +160,33 @@ def trend_analysis(df):
     print("SECTION 4: TREND AND GROUPED ANALYSIS")
     print("="*80)
     
-    # Q19: Average fare per time of day
+    # Average fare per time of day
     print(f"\n19. Average fare per time of day:")
     avg_fare_time = df.groupby('TimeOfDay')['FareAmount ($)'].mean().sort_values(ascending=False)
     print(avg_fare_time.round(2))
     
-    # Q20: Total revenue per payment method
+    # Total revenue per payment method
     print(f"\n20. Total revenue per payment method:")
     revenue_payment = df.groupby('PaymentMethod')['FareAmount ($)'].sum().sort_values(ascending=False)
     print(revenue_payment.round(2))
     
-    # Q21: Top 5 pickup locations by revenue
+    # Top 5 pickup locations by revenue
     print(f"\n21. Top 5 pickup locations by total revenue:")
     top5_pickup_revenue = df.groupby('PickupLocation')['FareAmount ($)'].sum().sort_values(ascending=False).head(5)
     print(top5_pickup_revenue.round(2))
     
-    # Q22: Average FarePerKM by time of day
+    # Average FarePerKM by time of day
     print(f"\n22. Average FarePerKM by time of day:")
     avg_fare_per_km = df.groupby('TimeOfDay')['FarePerKM'].mean().sort_values(ascending=False)
     print(avg_fare_per_km.round(2))
     print(f"    Most expensive period: {avg_fare_per_km.index[0]}")
     
-    # Q23: Busiest day of week
+    # Busiest day of week
     print(f"\n23. Busiest day of week:")
     day_counts = df['DayOfWeek'].value_counts()
     print(f"    {day_counts.index[0]}: {day_counts.values[0]} rides")
     
-    # Q24: Average fare per month
+    # Average fare per month
     print(f"\n24. Average fare per month:")
     monthly_avg = df.groupby('Month')['FareAmount ($)'].mean().sort_values(ascending=False)
     print(monthly_avg.round(2))
@@ -206,7 +206,7 @@ def create_visualizations(df, avg_fare_time, revenue_payment, top5_pickup_revenu
     print("="*80)
     print("\nGenerating visualizations...")
     
-    # Q25: Bar chart - rides per time of day
+    # Bar chart - rides per time of day
     plt.figure(figsize=(10, 6))
     time_counts = df['TimeOfDay'].value_counts()
     time_counts.plot(kind='bar', color='skyblue', edgecolor='black')
@@ -218,7 +218,7 @@ def create_visualizations(df, avg_fare_time, revenue_payment, top5_pickup_revenu
     plt.savefig('../Visualizations/25_rides_per_time.png', dpi=300, bbox_inches='tight')
     plt.close()
     
-    # Q26: Pie chart - payment method distribution
+    # Pie chart - payment method distribution
     plt.figure(figsize=(10, 8))
     payment_counts = df['PaymentMethod'].value_counts()
     plt.pie(payment_counts, labels=payment_counts.index, autopct='%1.1f%%', startangle=90)
@@ -227,7 +227,7 @@ def create_visualizations(df, avg_fare_time, revenue_payment, top5_pickup_revenu
     plt.savefig('../Visualizations/26_payment_method_distribution.png', dpi=300, bbox_inches='tight')
     plt.close()
     
-    # Q27: Scatter plot - Distance vs Fare
+    # Scatter plot - Distance vs Fare
     plt.figure(figsize=(10, 6))
     plt.scatter(df['Distance (km)'], df['FareAmount ($)'], alpha=0.5, color='green')
     plt.title('27. Distance vs Fare Amount', fontsize=14, fontweight='bold')
@@ -237,7 +237,7 @@ def create_visualizations(df, avg_fare_time, revenue_payment, top5_pickup_revenu
     plt.savefig('../Visualizations/27_distance_vs_fare.png', dpi=300, bbox_inches='tight')
     plt.close()
     
-    # Q28: Histogram - Fare distribution
+    # Histogram - Fare distribution
     plt.figure(figsize=(10, 6))
     plt.hist(df['FareAmount ($)'], bins=30, color='orange', edgecolor='black')
     plt.title('28. Distribution of Fare Amounts', fontsize=14, fontweight='bold')
@@ -247,7 +247,7 @@ def create_visualizations(df, avg_fare_time, revenue_payment, top5_pickup_revenu
     plt.savefig('../Visualizations/28_fare_distribution.png', dpi=300, bbox_inches='tight')
     plt.close()
     
-    # Q29: Bar chart - average fare by top 10 pickup locations
+    # Bar chart - average fare by top 10 pickup locations
     plt.figure(figsize=(12, 6))
     top10_pickup_avg = df.groupby('PickupLocation')['FareAmount ($)'].mean().sort_values(ascending=False).head(10)
     top10_pickup_avg.plot(kind='bar', color='purple', edgecolor='black')
@@ -259,7 +259,7 @@ def create_visualizations(df, avg_fare_time, revenue_payment, top5_pickup_revenu
     plt.savefig('../Visualizations/29_avg_fare_top10_pickup.png', dpi=300, bbox_inches='tight')
     plt.close()
     
-    # Q30: Line chart - monthly total fares
+    # Line chart - monthly total fares
     plt.figure(figsize=(12, 6))
     df['YearMonth'] = df['Date'].dt.to_period('M')
     monthly_revenue = df.groupby('YearMonth')['FareAmount ($)'].sum()
@@ -343,17 +343,17 @@ def insights_and_reporting(df):
 # ============================================================================
 
 def bonus_analysis(df):
-    """Answer bonus questions."""
+    """Answer advanced analysis questions."""
     print("\n" + "="*80)
-    print("BONUS QUESTIONS")
+    print("ADVANCED ANALYSIS")
     print("="*80)
     
-    # Q37: Average fare per day of week
+    # Average fare per day of week
     print(f"\n37. Average fare per day of week:")
     avg_fare_day = df.groupby('DayOfWeek')['FareAmount ($)'].mean().sort_values(ascending=False)
     print(avg_fare_day.round(2))
     
-    # Q38: Weekends vs weekdays
+    # Weekends vs weekdays
     df['IsWeekend'] = df['DayOfWeek'].isin(['Saturday', 'Sunday'])
     weekend_rides = df[df['IsWeekend']].shape[0]
     weekday_rides = df[~df['IsWeekend']].shape[0]
@@ -362,7 +362,7 @@ def bonus_analysis(df):
     print(f"    Weekday rides: {weekday_rides}")
     print(f"    Weekends have {'MORE' if weekend_rides > weekday_rides else 'FEWER'} rides than weekdays")
     
-    # Q39: Month with highest revenue growth
+    # Month with highest revenue growth
     print(f"\n39. Monthly revenue analysis:")
     df['YearMonth'] = df['Date'].dt.to_period('M')
     monthly_revenue = df.groupby('YearMonth')['FareAmount ($)'].sum()
@@ -371,7 +371,7 @@ def bonus_analysis(df):
         max_growth_month = monthly_growth.idxmax()
         print(f"    Highest growth month: {max_growth_month} ({monthly_growth.max():.2f}% growth)")
     
-    # Q40: Average fare per KM by payment method
+    # Average fare per KM by payment method
     print(f"\n40. Average FarePerKM by payment method:")
     avg_fare_km_payment = df.groupby('PaymentMethod')['FarePerKM'].mean().sort_values(ascending=False)
     print(avg_fare_km_payment.round(2))
